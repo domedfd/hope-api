@@ -7,8 +7,8 @@ import {
 
 @Entity({ name: 'games' })
 export class Game {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   nivel: number;
@@ -24,4 +24,7 @@ export class Game {
 
   @CreateDateColumn()
   created_at: Date;
+
+  @Column()
+  user: string;
 }

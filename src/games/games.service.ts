@@ -14,7 +14,7 @@ export class GamesService {
 
   arrayrandom(columns) {
     const matrix = [];
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 3; i++) {
       const position = Array.from({ length: columns }, (_, i) => 0);
       const pBoom = Math.floor(Math.random() * columns);
       position[pBoom] = 1;
@@ -41,19 +41,37 @@ export class GamesService {
     return this.gameRepo.find();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.gameRepo.findOne(id);
   }
 
-  async update(id: number, updateGameDto: UpdateGameDto) {
-    const updateResult = await this.gameRepo.update(id, updateGameDto);
+  async update(id: string, updateGameDto: UpdateGameDto) {
+    const pPosition = (await this.gameRepo.findOne(id)).position;
+    const matrix = (await this.gameRepo.findOne(id)).array as any;
+
+    for (let i = 0; i < +pPosition; i++) {
+      // matrix[i] = [1, 1, 1];
+      console.log(i);
+      console.log(matrix[i]);
+      console.log(i);
+    }
+    const newPosition = await this.gameRepo.findOne(id);
+    console.log(updateGameDto);
+    if (pPosition < matrix.length) {
+      newPosition.position++;
+    }
+    console.log(newPosition.position);
+    const updateResult = await this.gameRepo.update(id, {
+      position: newPosition.position,
+    });
     if (!updateResult.affected) {
       throw new EntityNotFoundError(Game, id);
     }
+
     return this.gameRepo.findOne(id);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const removeResult = await this.gameRepo.delete(id);
     if (!removeResult.affected) {
       throw new EntityNotFoundError(Game, id);

@@ -12,15 +12,11 @@ GET http://localhost:3000/games
 GET http://localhost:3000/games/19
 
 ###
-PATCH  http://localhost:3000/games/5
+PATCH  http://localhost:3000/games/f6977461-cd40-406d-a71c-196cfc285836
 Content-type: application/json
 
 {
-    "nivel": "3",
-    "array": "",
-    "position": "0",
-    "done": true,
-    "created_at":"2021-08-23T22:35:40+00:00"
+    "nivel": "1"
 
 }
 

@@ -8,9 +8,10 @@ export class createGamesTable1629743602284 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'int',
-            isGenerated: true,
-            generationStrategy: 'increment',
+            type: 'varchar',
+            isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           { name: 'nivel', type: 'int' },
           { name: 'array', type: 'integer ARRAY', isNullable: true },
@@ -21,6 +22,7 @@ export class createGamesTable1629743602284 implements MigrationInterface {
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP',
           },
+          { name: 'user', type: 'varchar', default: "'domenico'" },
         ],
       }),
     );
