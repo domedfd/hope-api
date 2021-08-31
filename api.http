@@ -12,7 +12,7 @@ GET http://localhost:3000/games
 GET http://localhost:3000/games/19
 
 ###
-PATCH  http://localhost:3000/games/a9a5b41e-fc4b-43e0-8dc2-e7767c42605b
+PATCH  http://localhost:3000/games/d1d36dd0-0cf6-4c5e-a027-331c7995c41c
 Content-type: application/json
 
 {

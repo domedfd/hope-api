@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GamesModule } from './games/games.module';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
   imports: [
@@ -18,6 +19,11 @@ import { GamesModule } from './games/games.module';
       database: process.env.TYPEORM_DATABASE,
       entities: [process.env.TYPEORM_ENTITIES],
     }),
+    // GraphQLModule.forRoot({
+    //   // autoSchemaFile: 'schema.gql',
+    //   debug: false,
+    //   playground: true,
+    // }),
   ],
   controllers: [AppController],
   providers: [AppService],
