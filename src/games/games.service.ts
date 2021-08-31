@@ -17,14 +17,29 @@ export class GamesService {
     for (let i = 0; i < 8; i++) {
       const position = Array.from({ length: columns }, (_, i) => valor);
       const pBoom = Math.floor(Math.random() * columns);
-      position[pBoom] = 1;
+      if (valor != 2) {
+        position[pBoom] = 1;
+      }
 
       matrix[i] = position;
     }
     return matrix;
   }
 
+  fakematrix;
+
   async create(createGameDto: CreateGameDto) {
+    this.fakematrix = [
+      [2, 2, 2],
+      [2, 2, 2],
+      [2, 2, 2],
+      [2, 2, 2],
+      [2, 2, 2],
+      [2, 2, 2],
+      [2, 2, 2],
+      [2, 2, 2],
+    ];
+
     const game = this.gameRepo.create(createGameDto);
     const newGame = await this.gameRepo.save(game);
     // console.log(newGame.id);
@@ -33,7 +48,7 @@ export class GamesService {
     if (!updateResult.affected) {
       throw new EntityNotFoundError(Game, newGame);
     }
-    newGame.array = this.arrayrandom(3, 1);
+    newGame.array = this.arrayrandom(3, 2);
     return newGame;
   }
 
@@ -45,24 +60,14 @@ export class GamesService {
     return this.gameRepo.findOne(id);
   }
 
-  fakematrix = [
-    [1, 1, 1],
-    [1, 1, 1],
-    [1, 1, 1],
-    [1, 1, 1],
-    [1, 1, 1],
-    [1, 1, 1],
-    [1, 1, 1],
-    [1, 1, 1],
-  ];
   async update(id: string, updateGameDto: UpdateGameDto) {
     const pPosition = (await this.gameRepo.findOne(id)).position;
     const matrix = (await this.gameRepo.findOne(id)).array as any;
-    console.log(+pPosition - 1);
+    // console.log(+pPosition - 1);
     console.log(this.fakematrix);
     this.fakematrix[+pPosition - 1] = matrix[+pPosition - 1];
     const resultado = this.fakematrix;
-    console.log(this.fakematrix);
+    // console.log(resultado);
 
     // for (let i = 0; i < +pPosition; i++) {
     //   console.log(i);
